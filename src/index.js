@@ -1,5 +1,5 @@
-const express = require('express');
-const testConnect = require('./db/testConnect');
+const express = require("express");
+const testConnect = require("./db/testConnect");
 
 class AppController {
     constructor() {
@@ -14,8 +14,8 @@ class AppController {
     }
 
     routes(){
-        const apiRoutes = require('./routes/apiRoutes');
-        this.express.use('/estoque', apiRoutes);
+        const apiRoutes = require("./routes/apiRoutes");
+        this.express.use("/estoque", apiRoutes);
     }
 }
 
