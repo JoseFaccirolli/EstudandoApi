@@ -43,7 +43,7 @@ module.exports = class userController {
     }
 
     static async readAllUser(req, res) {
-        const query = `SELECT * FROM user`
+        const query = `SELECT user_cpf, user_email, user_name FROM user`
         try {
             connect.query(query, (err, results) => {
                 if (err) {
