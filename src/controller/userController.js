@@ -6,8 +6,6 @@ const SALT_ROUNDS = 10;
 module.exports = class userController {
     static async createUser(req, res) {
         const { userCpf, userEmail, userPassword, userName } = req.body
-        const query = `INSERT INTO user (user_cpf=?, user_email=?, user_password=?, user_name=?)`
-        const values = [userCpf, userEmail, userPassword, userName]
 
         if (!userCpf || !userEmail || !userPassword || !userName) {
             return res.status(400).json({ error: "All fields are required!" })
@@ -15,11 +13,14 @@ module.exports = class userController {
         if (isNaN(userCpf) || userCpf.length !== 11) {
             return res.status(400).json({ error: "Invalid CPF. Must contain 11 numeric characters." })
         }
-        if (!userEmail.include('@')) {
+        if (!userEmail.includes('@')) {
             return res.status(400).json({ error: "Invalid Email. Must contain @" })
         }
 
         const hashedPassword = await bcrypt.hash(userPassword, SALT_ROUNDS);
+        const query = `INSERT INTO user (user_cpf, user_email, user_password, user_name)
+        VALUES (?, ?, ?, ?)`
+        const values = [userCpf, userEmail, hashedPassword, userName]
 
         try {
             connect.query(query, values, (err) => {
@@ -33,6 +34,7 @@ module.exports = class userController {
                     }
                     return res.status(500).json({ error: "Internal server error" })
                 }
+                return res.status(200).json({ message: "User created successfully" })
             })
         } catch (error) {
             console.log(error)
