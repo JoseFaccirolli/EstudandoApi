@@ -13,7 +13,7 @@ create table component (
     component_name varchar(200) not null,
     quantity int not null,
     description varchar(255),
-    fk_user_cpf int not null,
+    fk_user_cpf char(11) not null,
     foreign key(fk_user_cpf) references user(user_cpf)
 );
 
