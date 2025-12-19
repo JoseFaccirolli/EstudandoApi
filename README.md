@@ -28,10 +28,21 @@ cd EstudandoApi
 
 ### 2️⃣ Instalar as dependências
 ```bash
-npm i
+npm install
 ```
 
-### 3️⃣ Iniciar o servidor
+### 3️⃣ Configurar variáveis de ambiente
+Crie um arquivo ```.env``` com as seguintes variáveis:
+```bash
+DB_HOST=localhost
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+DB_NAME=nome_do_banco
+DB_CONNECTION_LIMIT=10
+```
+Dica: Utilize o banco de exemplo em src/db/example.sql
+
+### 4️⃣ Iniciar o servidor
 ```bash
 npm start
 ```
