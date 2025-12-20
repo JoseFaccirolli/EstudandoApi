@@ -20,7 +20,7 @@ create table component (
 create table stock_log (
     log_id int auto_increment primary key,
     log_status enum("in", "out") not null,
-    data_log datetime default (CURDATE()),
+    data_log datetime default current_timestamp,
     fk_component_id int,
     foreign key(fk_component_id) references component(component_id)
 );
