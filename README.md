@@ -48,3 +48,8 @@ npm start
 ```
 A API será iniciada na porta especificada (padrão: 5000).
 Exemplo: http://localhost:5000
+
+---
+
+## 📜 Documentação do projeto
+[Notion - Documentação](https://www.notion.so/Documenta-o-EstudandoAPI-2cfdd60eaefc80d88f4bd0addd6b43e3?source=copy_link)
