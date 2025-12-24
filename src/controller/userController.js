@@ -154,25 +154,17 @@ module.exports = class UserController {
         const query = `DELETE FROM user WHERE user_cpf = ?`;
 
         try {
-            connect.query(query, [userCpf], (err, results) => {
-                if (err) {
-                    console.error(err);
-                    return res.status(500).json({
-                        error: true,
-                        message: "Internal server error"
-                    });
-                }
-                if (results.affectedRows === 0) {
-                    return res.status(404).json({
-                        error: true,
-                        message: "User not found"
-                    });
-                }
-                return res.status(200).json({
-                    error: false,
-                    message: "User deleted successfully"
+            const [result] = await connect.query(query, [userCpf]);
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    error: true,
+                    message: "User not found"
                 });
-            })
+            }
+            return res.status(200).json({
+                error: false,
+                message: "User deleted successfully"
+            });
         } catch (error) {
             console.error(error);
             return res.status(500).json({
