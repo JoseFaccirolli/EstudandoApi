@@ -11,6 +11,6 @@ module.exports = function testConnect(){
             console.log("Conection established with MySQL.");
         })
     } catch (error) {
-        console.error("Errir executing SQL query. ", error);
+        console.error("Error executing SQL query. ", error);
     }
 }
