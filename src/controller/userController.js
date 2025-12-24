@@ -31,27 +31,19 @@ module.exports = class UserController {
         const values = [userCpf, userEmail, hashedPassword, userName];
 
         try {
-            connect.query(query, values, (err) => {
-                if (err) {
-                    console.error(err);
-                    if (err.code === "ER_DUP_ENTRY") {
-                        return res.status(400).json({
-                            error: true,
-                            message: "CPF or Email already registered."
-                        });
-                    }
-                    return res.status(500).json({
-                        error: true,
-                        message: "Internal server error"
-                    });
-                }
+            await connect.execute(query, values);
                 return res.status(201).json({
                     error: false,
                     message: "User created successfully"
                 });
-            });
         } catch (error) {
-            console.error(error)
+            console.error(error);
+            if (error.code === "ER_DUP_ENTRY") {
+                return res.status(400).json({
+                    error: true,
+                    message: "CPF or Email already registered."
+                });
+            }
             return res.status(500).json({
                 error: true,
                 message: "Internal server error"
