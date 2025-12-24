@@ -28,4 +28,16 @@ module.exports = class UserService {
             throw {status: 500, message: "Internal Server Error"}
         }
     }
+    
+    static async readAllUsers() {
+        const query = `SELECT user_cpf, user_email, user_name FROM user`;
+        
+        try {
+            const [users] = await connect.execute(query);
+            return users;            
+        } catch (error) {
+            console.error(error);
+            throw {status: 500, message: "Internal Server Error"}
+        }
+    }
 }

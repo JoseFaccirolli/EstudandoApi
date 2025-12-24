@@ -1,9 +1,3 @@
-// ---- temp ---- //
-//const connect = require("../database/connect");
-//const bcrypt = require("bcrypt");
-//const SALT_ROUNDS = 10;
-// ---- temp ---- //
-
 const UserService = require("../service/userService");
 module.exports = class UserController {
     static async createUser(req, res) {
@@ -31,19 +25,17 @@ module.exports = class UserController {
     }
 
     static async readAllUsers(req, res) {
-        const query = `SELECT user_cpf, user_email, user_name FROM user`;
         try {
-            const [users] = await connect.execute(query)
+            const users = await UserService.readAllUsers();
                 return res.status(200).json({
                     error: false,
                     message: "Users fetched successfully",
                     data: users
                 });
         } catch (error) {
-            console.error(error);
-            return res.status(500).json({
+            return res.status(error.status || 500).json({
                 error: true,
-                message: "Internal server error"
+                message: error.message || "Internal server error"
             });
         }
     }
