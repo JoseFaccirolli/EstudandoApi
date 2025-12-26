@@ -1,4 +1,4 @@
-# Referência da API (cURL)
+# Referência para testes
 > **Dica:** Se você usa o Postman, pode importar estes comandos clicando em **Import** e colar o cURL.
 
 ---
