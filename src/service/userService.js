@@ -23,7 +23,7 @@ module.exports = class UserService {
         } catch (error) {
             console.error(error)
             if (error.code === "ER_DUP_ENTRY") {
-                throw {status: 400, message: "CPF or Email already registered."}
+                throw {status: 409, message: "CPF or Email already registered."}
             }
             throw {status: 500, message: "Internal Server Error."}
         }
@@ -82,7 +82,7 @@ module.exports = class UserService {
             if (error.status) throw error;
             console.error(error);
             if (error.code === "ER_DUP_ENTRY") {
-                throw { status: 400, message: "Email already registered." }
+                throw { status: 409, message: "Email already registered." }
             } 
             throw { status: 500, message: "Internal Server Error." }
         }
