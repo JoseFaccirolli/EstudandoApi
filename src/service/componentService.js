@@ -58,7 +58,7 @@ module.exports = class ComponentService {
             values.push(componentName);
         }
 
-        if (description) {
+        if (description !== undefined) {
             updates.push("description = ?");
             values.push(description);
         }

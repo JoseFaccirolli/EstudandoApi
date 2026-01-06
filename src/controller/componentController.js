@@ -45,7 +45,7 @@ module.exports = class ComponentController {
         const { componentId } = req.params
         const { componentName, description } = req.body;
 
-        if (!componentName && !description) {
+        if (!componentName && description === undefined) {
             return res.status(400).json({
                 error: true,
                 message: "No fields provided for update."
