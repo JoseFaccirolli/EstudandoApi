@@ -65,4 +65,28 @@ module.exports = class ComponentController {
             });
         }
     }
+
+    static async deleteComponent(req, res) {
+        const { componentId } = req.params;
+
+        if (!componentId || isNaN(componentId)) {
+            return res.status(400).json({
+                error: true,
+                message: "Invalid Component ID."
+            });
+        }
+
+        try {
+            await ComponentService.deleteComponent(componentId);
+            return res.status(200).json({
+                error: false,
+                message: "Component deleted successfully"
+            });
+        } catch (error) {
+            return res.status(error.status || 500).json({
+                error: true,
+                message: error.message || "Internal Server Error"
+            });
+        }
+    }
 }

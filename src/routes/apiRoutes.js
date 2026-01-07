@@ -13,5 +13,6 @@ router.post("/user/login", userController.loginUser);
 router.post("/component", ComponentController.createComponent);
 router.get("/component", ComponentController.readAllComponents);
 router.patch("/component/:componentId", ComponentController.updateComponent);
+router.delete("/component/:componentId", ComponentController.deleteComponent);
 
 module.exports = router;

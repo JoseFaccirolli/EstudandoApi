@@ -80,4 +80,19 @@ module.exports = class ComponentService {
             throw { status: 500, message: "Internal Server Error." }
         }
     }
+
+    static async deleteComponent(componentId) {
+        const query = `DELETE FROM component WHERE component_id = ?`;
+
+        try {
+            const [result] = await connect.execute(query, [componentId])
+            if (result.affectedRows === 0) {
+                throw { status: 404, message: "Component not found." }
+            }
+            return result;
+        } catch (error) {
+            if (error.status) throw error;
+            throw { status: 500, message: "Internal Server Error" }
+        }
+    }
 }
