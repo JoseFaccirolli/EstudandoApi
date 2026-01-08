@@ -36,20 +36,49 @@ module.exports = class StockService {
         }
     }
 
-    static async exit() {
-        
+    static async exit(componentId, quantity, userCpf) {
+        const connection = await pool.getConnection();
+
+        try {
+            await connection.beginTransaction();
+
+            const query = `SELECT quantity FROM component WHERE component_id = ?`;
+            const [oldQuantity] = await connection.execute(query, [componentId]);
+
+            const queryExit = `UPDATE component SET quantity = quantity - ? WHERE component_id = ?`;
+            const exitValues = [quantity, componentId];
+            const [result] = await connection.execute(queryExit, exitValues);
+            if (result.affectedRows === 0) {
+                throw { status: 404, message: "Component not found." }
+            }
+            if (oldQuantity[0].quantity < quantity) {
+                throw { status: 400, message: "Requested quantity exceeds available stock" }
+            }
+
+            const queryLog = `INSERT INTO stock_log (log_status, quantity_changed, fk_component_id, fk_user_cpf) 
+            VALUES (?, ?, ?, ?)`;
+            const logValues = ["out", quantity, componentId, userCpf];
+            await connection.execute(queryLog, logValues);
+
+            await connection.commit();
+        } catch (error) {
+            await connection.rollback();
+            if (error.status) throw error;
+            if (error.code === "ER_NO_REFERENCED_ROW_2") {
+                throw { status: 404, message: "User not found." }
+            }
+            console.log(error)
+            throw { status: 500, message: "Internal Server Error." }
+        } finally {
+            connection.release();
+        }
     }
 }
 
 /*
-create table stock_log (
-    log_id int auto_increment primary key,
-    log_status enum("in", "out") not null,
-    quantity_changed int not null,
-    data_log datetime default current_timestamp,
-    fk_component_id int not null,
-    fk_user_cpf char(11) not null,
-    foreign key(fk_component_id) references component(component_id),
-    foreign key(fk_user_cpf) references user(user_cpf)
-);
+    getConnection
+    beginTransation
+    commit
+    rollback
+    release
 */
