@@ -30,7 +30,7 @@ module.exports = class ComponentService {
             c.component_name, 
             c.quantity, 
             c.description, 
-            u.user_name 
+            u.user_name as userName
         FROM component c 
         JOIN user u ON c.fk_user_cpf = u.user_cpf
         `;
