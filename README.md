@@ -4,7 +4,7 @@
 ---
 
 ## Sobre o projeto
-Este projeto tem como objetivo criar uma **API simples** que realiza operações **CRUD** (Create, Read, Update, Delete) para controle de usuários e componentes.  
+Este projeto tem como objetivo criar uma **API Simples** que realiza operações **CRUD** (Create, Read, Update, Delete) para controle e gerenciamento de estoque.  
 A aplicação simula um pequeno sistema de cadastro e login de usuários, com gerenciamento básico de estoque vinculado a cada um deles.
 
 ---
