@@ -3,6 +3,7 @@ const StockService = require("../service/stockService");
 module.exports = class StockController {
     static async entry(req, res) {
         const { componentId, quantity, userCpf } = req.body;
+
         if (!componentId || !quantity || !userCpf) {
             return res.status(400).json({
                 error: true,
@@ -32,6 +33,7 @@ module.exports = class StockController {
 
     static async exit(req, res) {
         const { componentId, quantity ,userCpf } = req.body;
+
         if (!componentId || !quantity || !userCpf) {
             return res.status(400).json({
                 error: true,
@@ -59,4 +61,3 @@ module.exports = class StockController {
         }
     }
 }
-

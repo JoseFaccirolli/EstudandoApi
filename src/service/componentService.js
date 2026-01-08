@@ -20,7 +20,6 @@ module.exports = class ComponentService {
             }
             throw { status: 500, message: "Internal Server Error." }
         }
-
     }
 
     static async readAllComponents() {
@@ -45,7 +44,6 @@ module.exports = class ComponentService {
     }
 
     static async updateComponent(componentName, description, componentId) {
-
         if (description && description.length > 255) {
             throw { status: 413, message: "Description is too long." }
         }

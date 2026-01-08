@@ -20,5 +20,4 @@ router.delete("/component/:componentId", ComponentController.deleteComponent);
 router.patch("/stock/entry", StockController.entry);
 router.patch("/stock/exit", StockController.exit);
 
-
 module.exports = router;

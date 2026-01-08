@@ -3,14 +3,13 @@ const ComponentService = require("../service/componentService");
 module.exports = class ComponentController {
     static async createComponent(req, res) {
         const { componentName, quantity, description, fkUserCpf } = req.body;
-        
+
         if (!componentName || quantity === undefined || !fkUserCpf) {
             return res.status(400).json({
                 error: true,
                 message: "Missing required fields."
             });
         }
-
         if (isNaN(quantity) || quantity <= 0) {
             return res.status(400).json({
                 error: true,

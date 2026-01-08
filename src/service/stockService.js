@@ -74,11 +74,3 @@ module.exports = class StockService {
         }
     }
 }
-
-/*
-    getConnection
-    beginTransation
-    commit
-    rollback
-    release
-*/
