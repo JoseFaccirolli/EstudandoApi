@@ -112,7 +112,8 @@ curl --location 'http://localhost:5000/component'
 
 ### 3. Atualizar Componente (`updateComponent`)
 Atualiza dados parciais de um Component específico via ID. <br>
-_OBS: Só é possivível atualizar nome e descrição_
+_OBS.1: Só é possivível atualizar nome e descrição_ <br>
+_OBS.2: Deixe o campo da descrição vazio se quiser deixar em branco_
 ```http
 PATCH /component/:componentId
 ```
@@ -123,7 +124,7 @@ curl --location --request PATCH 'http://localhost:5000/component/1' \
 --header 'Content-Type: application/json' \
 --data '{
     "componentName": "Name Changed",
-    "description": "Description Changed"
+    "description": ""
 }'
 ```
 
